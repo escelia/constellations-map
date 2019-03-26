@@ -19,6 +19,11 @@ class Endpoint
 		_end = end;
 	}
 
+	public string getEndpoint()
+	{
+		return _start + ", " + _end;
+	}
+
 	public string getStart()
 	{
 		return _start;

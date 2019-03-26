@@ -39,18 +39,33 @@ class HelloWorld
 0.883455 0.044652 -0.466383 720 5.41 34
 0.816743 0.041844 -0.575482 739 5.24 35
 0.963482 0.055705 0.261913 886 2.83 39 ALGENIB";
-		List<StarMapReader> starList = StarMapReader.stringToList(text);
+		List<StarMapReader> starList = StarGroup.stringToList(text);
+		List<StarMapReader> list = Star.GetList();
+
+		foreach (StarMapReader star in list)
+		{
+			Console.WriteLine(star.getX);
+		}
+
+		StarMapReader.RemoveAllStars();
+
+		foreach (StarMapReader star in list)
+		{
+			Console.WriteLine(star.getX);
+		}
 
 		//foreach(StarMapReader star in starList)
 		//{
 		//	Console.Write(star.getNames().Any());
 		//}
-		Console.WriteLine(StarMapReader.getCoordsByName("ALPHERATZ", starList).getX());
+		//Console.WriteLine(StarMapReader.getCoordsByName("ALPHERATZ", starList).getX());
 
 		//Console.WriteLine(StarMapReader.getStarAmount(starList));
 
 		//Constellation con = Constellation.fileToList(path);
 		//Console.WriteLine(con.getEndpointAt(3));
+
+
 		
 	}
 }

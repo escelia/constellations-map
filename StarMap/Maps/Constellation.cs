@@ -56,9 +56,12 @@ class Constellation
     		string line = strReader.ReadLine();
 		    if(line != null)
 		    {
-		    	string[] starpoints = line.Split(',');
-				Endpoint point = new Endpoint(starpoints[0], starpoints[1]);
-				list.Add(point);
+					if(!string.IsNullOrWhiteSpace(line))
+					{
+						string[] starpoints = line.Split(',');
+						Endpoint point = new Endpoint(starpoints[0], starpoints[1]);
+						list.Add(point);
+					}
 		    }
 		    else
 		    {
@@ -69,29 +72,69 @@ class Constellation
 		return new Constellation(list);
 	}
 
-	// returns the number of lines in a constellation
+	/* ARGS: none
+	*  RETURN: the number of lines in the constellation
+	*/
 	public int getNumberOfLines()
 	{
 		return _lines.Count;
 	}
-
-	// returns the ith endpoint of a constellation
+	/* ARGS: a valid index of a line in the constellation
+	*  RETURN: the ith endpoint of a constellation
+	*/
 	public Endpoint getEndpointAt(int index)
 	{
 		return _lines[index];
 	}
 
-/*
+	/* INPUT: none
+	*   OUTPUT: The member names of the constellation, if they exist	
+	*/
+	public List<string> NamesInConstellation()
+	{
+		List<string> names = new List<string>();
+
+		foreach(Endpoint point in _lines)
+		{
+			names.Add(point.getStart());
+		}
+
+		return names;
+	}
+
+	/* ARGS: none
+	*  RETURN: the coordinates of every member of the constellation
+	*/
+	public List<StarCoords> CoordsInConstellation()
+	{
+		List<StarCoords> coords = new List<StarCoords>();
+		StarMapReader smr = new StarMapReader();
+		List<Star> list = smr.fileToList(@"../../../../StarMap/Maps/stars.txt");
+
+		foreach(Endpoint point in _lines)
+		{
+			coords.Add(Star.getCoordsByName(point.getStart(), list));
+		}
+
+		return coords;
+	}
+
+	/* ARGS: a valid index
+	*  RETURN: the endpoint at given index
+	*/
 	public string getStringEndpointAt(int index)
 	{
 		return _lines[index].getEndpoint();
 	}
 
+	/* ARGS: a list of constellations
+	*  RETURN: number of constellations in list
+	*/
 	public static int getNumberOfConstellations(List<Constellation> list)
 	{
 		return list.Count;
 	}
-	*/
+
 
 
 }

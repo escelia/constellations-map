@@ -15,9 +15,10 @@ public class CreateStarMap2 : MonoBehaviour
     void Start()
     {
         string text = textFile.text;
-        List<StarMapReader> starList = StarMapReader.stringToList(text);
+        StarMapReader smr = new StarMapReader();
+        List<Star> starList = smr.stringToList(text);
 
-        foreach(StarMapReader star in starList)
+        foreach(Star star in starList)
         {
             GameObject newObj = GameObject.Instantiate(template);
 
@@ -26,7 +27,7 @@ public class CreateStarMap2 : MonoBehaviour
             float z = star.getZ();
             //float z = Random.Range(-10, 10);
             newObj.transform.position = new Vector3(x, y, z);
-            newObj.transform.localScale += new Vector3(star.getMag()*0.001f, star.getMag()*0.001f, star.getMag()*0.001f);
+            newObj.transform.localScale += new Vector3(star.getMag()*0.005f, star.getMag()*0.005f, star.getMag()*0.005f);
         }
 
         foreach(TextAsset constellation in constellations)
@@ -36,8 +37,8 @@ public class CreateStarMap2 : MonoBehaviour
 
             for(int i = 0; i < constel.getNumberOfLines(); i++)
             {
-                Vector3 pos1 = new Vector3(StarMapReader.getCoordsByName(constel.getEndpointAt(i).getStart(), starList).getX(),StarMapReader.getCoordsByName(constel.getEndpointAt(i).getStart(), starList).getY(), StarMapReader.getCoordsByName(constel.getEndpointAt(i).getStart(), starList).getZ());
-                Vector3 pos2 = new Vector3(StarMapReader.getCoordsByName(constel.getEndpointAt(i).getEnd(), starList).getX(),StarMapReader.getCoordsByName(constel.getEndpointAt(i).getEnd(), starList).getY(), StarMapReader.getCoordsByName(constel.getEndpointAt(i).getEnd(), starList).getZ());
+                Vector3 pos1 = new Vector3(Star.getCoordsByName(constel.getEndpointAt(i).getStart(), starList).getX(),Star.getCoordsByName(constel.getEndpointAt(i).getStart(), starList).getY(), Star.getCoordsByName(constel.getEndpointAt(i).getStart(), starList).getZ());
+                Vector3 pos2 = new Vector3(Star.getCoordsByName(constel.getEndpointAt(i).getEnd(), starList).getX(),Star.getCoordsByName(constel.getEndpointAt(i).getEnd(), starList).getY(), Star.getCoordsByName(constel.getEndpointAt(i).getEnd(), starList).getZ());
                 Vector3 dir = pos2 - pos1;
 
                 GameObject cylinderObj = GameObject.Instantiate(cylTemplate);
